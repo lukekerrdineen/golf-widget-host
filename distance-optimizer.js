@@ -1,4 +1,4 @@
-// ** distance-optimizer.js (V2 with Yardage Gain) **
+// ** distance-optimizer.js (V2 with Yardage Gain and New Branding) **
 // This script automatically injects the widget into the host page.
 
 (function() {
@@ -29,37 +29,37 @@
     const container = document.createElement('div');
     container.id = WIDGET_ID;
     
-    // Inject CSS styles (unchanged from previous step)
+    // Inject CUSTOMIZED CSS styles
     const style = document.createElement('style');
     style.innerHTML = `
         #${WIDGET_ID} {
             font-family: Arial, sans-serif;
-            border: 2px solid #004d40;
+            border: 2px solid #000000; /* Primary/Black Border */
             border-radius: 8px;
             padding: 20px;
             max-width: 350px;
             margin: 20px auto;
-            background-color: #e0f2f1;
+            background-color: #FFFFFF; /* White Background */
             color: #333;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         #${WIDGET_ID} h3 {
             margin-top: 0;
-            color: #004d40;
+            color: #000000; /* Black Header Text */
             text-align: center;
         }
         #${WIDGET_ID} input[type="number"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #ADB4B7; /* Grey Input Border */
             border-radius: 4px;
             box-sizing: border-box;
         }
         #${WIDGET_ID} button {
             width: 100%;
             padding: 10px;
-            background-color: #00796b;
+            background-color: #ED3E49; /* Red Button */
             color: white;
             border: none;
             border-radius: 4px;
@@ -68,28 +68,28 @@
             transition: background-color 0.3s;
         }
         #${WIDGET_ID} button:hover {
-            background-color: #004d40;
+            background-color: #000000; /* Black Hover */
         }
         #${WIDGET_ID} #result-output {
             margin-top: 15px;
             padding: 10px;
-            border-top: 1px dashed #004d40;
+            border-top: 1px dashed #ADB4B7; /* Grey Divider */
             text-align: center;
         }
         #${WIDGET_ID} .result-value {
             font-size: 1.2em;
             font-weight: bold;
-            color: #d84315;
+            color: #ED3E49; /* Red Accent */
         }
         #${WIDGET_ID} .gain-result {
             font-size: 1.5em;
-            color: #00796b;
+            color: #ED3E49; /* Red Gain Result */
             margin: 10px 0;
         }
     `;
     document.head.appendChild(style);
 
-    // 2.4. Inject the HTML form structure (now with two inputs)
+    // 2.4. Inject the HTML form structure
     container.innerHTML = `
         <h3>🚀 Optimal Distance Finder</h3>
         <p>Enter your stats to find your potential distance gains.</p>
@@ -114,47 +114,4 @@
     const output = document.getElementById('result-output');
 
     button.onclick = function() {
-        const speed = parseFloat(speedInput.value);
-        const currentDistance = parseFloat(distanceInput.value);
-
-        if (isNaN(speed) || speed < 80 || speed > 200) {
-            output.innerHTML = '<p style="color:red;">Please enter a valid Ball Speed (80-200 MPH).</p>';
-            return;
-        }
-        if (isNaN(currentDistance) || currentDistance < 50) {
-            output.innerHTML = '<p style="color:red;">Please enter a valid Current Distance (Yards).</p>';
-            return;
-        }
-
-        // Find the closest matching optimal data point
-        let bestMatch = OPTIMAL_DATA.reduce((prev, curr) => {
-            return (Math.abs(curr.speed - speed) < Math.abs(prev.speed - speed) ? curr : prev);
-        });
-
-        const optimalDistance = bestMatch.distance;
-        const potentialGain = Math.max(0, optimalDistance - currentDistance); 
-        // Use Math.max(0) to ensure gain is not negative if the user is already optimal
-
-        output.innerHTML = `
-            <h4>🎯 Your Optimization Results</h4>
-            
-            <p style="margin-bottom: 5px;">
-                Your **Optimal Distance** at **${bestMatch.speed} MPH** is:
-            </p>
-            <p class="gain-result">${optimalDistance} YARDS</p>
-            
-            <p style="border-top: 1px solid #ccc; padding-top: 10px; margin-top: 10px;">
-                **Potential Yardage Gain**:
-            </p>
-            <p class="gain-result" style="color: ${potentialGain > 0 ? '#d84315' : '#004d40'};">
-                +${potentialGain} YARDS
-            </p>
-            
-            <p style="font-size: 0.9em; margin-top: 15px;">
-                **To achieve this**, your target launch conditions are:<br>
-                **Launch Angle:** <span class="result-value">${bestMatch.launch} &deg;</span><br>
-                **Spin Rate:** <span class="result-value">${bestMatch.spin} RPM</span>
-            </p>
-        `;
-    };
-})();
+        const speed = parseFloat(speedInput.value
